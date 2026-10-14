@@ -1,0 +1,21 @@
+services:
+  curator:
+    build: .
+    container_name: github-profile-curator
+    restart: unless-stopped
+    init: true
+    env_file: .env
+    environment:
+      TZ: Europe/Rome
+      DATA_DIR: /data
+    volumes:
+      - ./data:/data
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    mem_limit: 384m
+    cpus: 0.75
